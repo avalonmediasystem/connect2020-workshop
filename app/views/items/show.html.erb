@@ -1,3 +1,6 @@
+<link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
+<link href="https://unpkg.com/@silvermine/videojs-quality-selector/dist/css/quality-selector.css" rel="stylesheet">
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -10,5 +13,43 @@
   <%= @item.streams %>
 </p>
 
+<p>
+  <video
+    id="my-video"
+    class="video-js"
+    width="640"
+    height="480"
+    controls
+    preload="auto"
+    data-setup="{}"
+  >
+    <% @item.streams.each do |q, url| %>
+      <source src="<%= url %>" type="application/x-mpegURL" label="<%= q %>"/>
+    <% end %>
+  </video>
+</p>
+
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
+
+
+<script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
+<script src="https://unpkg.com/@silvermine/videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>
+
+<script>
+  var options, player;
+
+  options = {
+    controlBar: {
+        children: [
+          'playToggle',
+          'progressControl',
+          'volumePanel',
+          'qualitySelector',
+          'fullscreenToggle',
+        ],
+    },
+  };
+
+  player = videojs('my-video', options);
+</script>
