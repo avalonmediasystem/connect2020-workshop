@@ -16,9 +16,7 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     session[:token] ||= SecureRandom.hex(16)
-    Rails.cache.write(session[:token], 
-                      @item.streams.collect { |s| s["url"] }, 
-                      expires_in: 1.hours)
+    Rails.cache.write(session[:token], @item.streams.values, expires_in: 1.hours)
   end
 
   # GET /items/new
@@ -70,7 +68,7 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /items/authorize
+  # GET /items/auth
   def authorize
     authorized_streams = Rails.cache.read(params[:token])
 
