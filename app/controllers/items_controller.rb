@@ -15,6 +15,8 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    session[:token] ||= SecureRandom.hex(16)
+    Rails.cache.write(session[:token], @item.streams.values, expires_in: 1.hours)
   end
 
   # GET /items/new
@@ -63,6 +65,17 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /items/auth
+  def authorize
+    authorized_streams = Rails.cache.read(params[:token])
+
+    if params[:name] and not authorized_streams.any? { |valid| valid.index(params[:name]).present? }
+      return head :forbidden
+    else
+      return head :ok
     end
   end
 

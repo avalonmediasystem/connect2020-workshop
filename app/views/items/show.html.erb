@@ -23,7 +23,7 @@
     preload="auto"
   >
     <% @item.streams.each do |stream| %>
-      <source src="<%= stream["url"] %>" type="application/x-mpegURL" label="<%= stream["label"] %>"/>
+      <source src="<%= stream["url"] %>?token=<%= session[:token] %>" type="application/x-mpegURL" label="<%= stream["label"] %>"/>
     <% end %>
   </video>
 </p>
