@@ -17,3 +17,9 @@ services:
       - "3000:3000"
     depends_on:
       - db
+  streaming:
+    build: ./nginx
+    volumes:
+      - ./streams:/data
+    ports:
+      - "3333:80"
