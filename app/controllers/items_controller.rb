@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :adaptive]
   before_action :require_login, except: [:index, :authorize]
 
   def require_login
@@ -79,6 +79,12 @@ class ItemsController < ApplicationController
     else
       return head :ok
     end
+  end
+
+  # GET /items/1/adaptive.m3u8
+  def adaptive
+    @streams = @item.streams
+    render layout: false, content_type: 'text/plain'
   end
 
   private

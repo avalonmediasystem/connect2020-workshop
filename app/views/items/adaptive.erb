@@ -1,0 +1,5 @@
+#EXTM3U
+<% @streams.each do |stream| %>
+#EXT-X-STREAM-INF:BANDWIDTH=<%= stream["bitrate"] %>
+<%= stream["url"] + "?token=" + session[:token]%>
+<% end %>

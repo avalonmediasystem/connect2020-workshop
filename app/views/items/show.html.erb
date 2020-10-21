@@ -22,6 +22,7 @@
     controls
     preload="auto"
   >
+    <source src="<%= adaptive_item_path(@item, format: "m3u8") %>" type="application/x-mpegURL" label="auto"/>
     <% @item.streams.each do |stream| %>
       <source src="<%= stream["url"] %>?token=<%= session[:token] %>" type="application/x-mpegURL" label="<%= stream["label"] %>"/>
     <% end %>
