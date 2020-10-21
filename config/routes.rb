@@ -3,6 +3,9 @@ Rails.application.routes.draw do
     collection do
       get :authorize
     end
+    member do
+      match 'adaptive', to: 'items#adaptive', via: [:get], as: "adaptive"
+    end
   end
   devise_for :users
   root to: "items#index"
