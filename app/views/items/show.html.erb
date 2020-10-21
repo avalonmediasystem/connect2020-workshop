@@ -23,8 +23,8 @@
     preload="auto"
     data-setup="{}"
   >
-    <% @item.streams.each do |q, url| %>
-      <source src="<%= url %>" type="application/x-mpegURL" label="<%= q %>"/>
+    <% @item.streams.each do |stream| %>
+      <source src="<%= stream["url"] %>" type="application/x-mpegURL" label="<%= stream["label"] %>"/>
     <% end %>
   </video>
 </p>
