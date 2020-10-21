@@ -21,7 +21,6 @@
     height="480"
     controls
     preload="auto"
-    data-setup="{}"
   >
     <% @item.streams.each do |stream| %>
       <source src="<%= stream["url"] %>" type="application/x-mpegURL" label="<%= stream["label"] %>"/>
